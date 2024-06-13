@@ -1,10 +1,22 @@
 import request from "supertest";
-import app from "../src/app";
+import app from "./app";
 
-describe("Testando a aplicação Express", () => {
-  it("deve responder com Hello, world! na rota raiz", async () => {
-    const response = await request(app).get("/");
-    expect(response.status).toBe(200);
-    expect(response.text).toBe("Hello, world!");
+describe("App", () => {
+  it("should receive a Hello, world!", () => {
+    return request(app).get("/").expect(200, "Hello, world!");
+  });
+
+  it("should create user", () => {
+    return request(app)
+      .post("/users")
+      .send({
+        name: "John Doe",
+        email: "john.doe@example.com",
+        password: "XXXXXXXX",
+      })
+      .expect(201, {
+        name: "John Doe",
+        email: "john.doe@example.com",
+      });
   });
 });
