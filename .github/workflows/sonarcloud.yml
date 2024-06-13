@@ -2,13 +2,14 @@ name: SonarCloud Code Analysis Pipeline
 
 on:
   push:
-    branches:
-      - develop
+    branches: [develop, main]
   pull_request:
+    branches: [develop, main]
     types: [opened, synchronize, reopened]
 
 jobs:
   analysis:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Git Checkout
